@@ -1,0 +1,14 @@
+#Regression Constants
+export PRAS,INTRSPEEDS,THETAS,PSIS,OWNSPEEDS,ACTIONS,VERTICAL_TAUS,RANGES, nstates
+### STATE CUTPOINTS ###
+const RANGES = [0.0,25.0,50.0,75.0,100.0,150.0,200.0,300.0,400.0,500.0,510.0,750.0,1000.0,1500.0,2000.0,3000.0,4000.0,5000.0,7000.0,9000.0,11000.0,13000.0,15000.0,17000.0,19000.0,21000.0,25000.0,30000.0,35000.0,40000.0,48000.0,56000.0]
+const THETAS = Array(LinRange(-pi,pi,41))
+const PSIS   = Array(LinRange(-pi,pi,41))
+const OWNSPEEDS = [200.0] #[100.0,200.0,300.0,400.0]  #ft/s
+const INTRSPEEDS = [200.0] #[100.0,200.0,300.0,400.0]  #ft/s
+const VERTICAL_TAUS   = Array(0:40)
+const PRAS    = [0, 1, 2, 3, 4]
+
+const RANGEMAX = maximum(RANGES)/1000.0 #kft
+const NSTATES = length(RANGES)*length(THETAS)*length(PSIS)*length(OWNSPEEDS)*length(INTRSPEEDS)
+const ACTIONS = deg2rad.([0.0, -1.5, 1.5, -3.0, 3.0])
