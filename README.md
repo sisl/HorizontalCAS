@@ -10,7 +10,7 @@ Required Julia Packages: Printf, POMDPs, POMDPModelTools, LocalFunctionApproxima
 
 Tested with Julia v1.1
 
-The policy is generated in parallel via Julia by running `julia -p NUM_PROCS SolveMatrix.jl` in the GenerateTable folder, where NUM_PROCS is the number of processors you want to use. The top of SolveMatrix.jl specifies where the table should be written to as an HDF5 file.
+The policy is generated in parallel via Julia by running `julia -p NUM_PROCS SolveMDP.jl` in the GenerateTable folder, where NUM_PROCS is the number of processors you want to use. The top of SolveMatrix.jl specifies where the table should be written to as an HDF5 file.
 
 ## Train Neural Networks
 Required Python Packages: numpy, h5py, tensorflow 
