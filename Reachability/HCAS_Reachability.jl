@@ -75,6 +75,28 @@ function getAdvParams(ra,delta)
     return params
 end
 
+function getActionName(ra)
+    #= Convert action index to a string name
+    Inputs:
+        ra (int): Advisory index
+    Outputs:
+        (string) name of advisory
+    =#
+    if ra == COC
+        return "COC"
+    elseif ra == WL
+        return "WL"
+    elseif ra == WR
+        return "WR"
+    elseif ra == SL
+        return "SL"
+    elseif ra == SR
+        return "SR"
+    else
+        return "UNKNOWN RA"
+    end
+end
+
 function indicesToIndex_Vector(pInds,yInds,xInds)
     #= Turn list of psi, y, and x indices into a vector of cell indexes
     Get the cell index for each set of psi, y, and x indices
@@ -653,7 +675,7 @@ function writeReachDynamicsMmap(;folder="ReachDynamics",ras=ACTIONS,ver=1,delta=
         None (results are written to memory-mapped files)
     =#
     for ra = ras
-        println(ra)
+        @printf("RA: %s\n",getActionName(ra))
         r,c = computeReachDynamics(delta,ra,v0=v0,v1=v1)
         idx_ptr = [UInt32(1)]
         append!(idx_ptr,findall(c[1:end-1].!=c[2:end]).+UInt32(1))
