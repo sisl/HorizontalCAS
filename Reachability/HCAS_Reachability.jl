@@ -437,7 +437,7 @@ function copySet(set)
     return out
 end
 
-function isConverged(sets,t)
+function isConverged(sets,t;verbose=false)
     #= Check if a set of cells has converged at time t. Convergence
         is checked by seeing if any change has been made at the previous step.
         Since t counts down with each step, check if the reachable set at t+1
@@ -458,16 +458,22 @@ function isConverged(sets,t)
     for key in keys(sets[t])
         if key in keys(sets[t+1])
             allTrue &= sets[t][key]==sets[t+1][key]
-            sumDiff += sum(sets[t][key].!=sets[t+1][key])
+            if verbose
+                sumDiff += sum(sets[t][key].!=sets[t+1][key])
+            elseif !allTrue
+                return false
+            end
         else
             allTrue = false
         end
     end
-    println(sumDiff)
+    if verbose
+        @printf("Number of different cells: %d\n",sumDiff)
+    end
     return allTrue
 end
 
-function isNMAC(sets,t,nmacCells)
+function isNmac(sets,t,nmacCells)
     #= Check if any cells are reachable that are NMACS
        (near midair collisions)
     Inputs:

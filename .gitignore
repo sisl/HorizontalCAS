@@ -1,2 +1,4 @@
 TrainingData/*
 */tmp*
+*bin
+*/.ipynb_checkpoints/*
