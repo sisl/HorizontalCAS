@@ -1,8 +1,5 @@
-using GridInterpolations
 using Printf
 using HDF5
-using SparseArrays
-using TickTock
 using Mmap
 
 include("NNet_Calculations.jl")
