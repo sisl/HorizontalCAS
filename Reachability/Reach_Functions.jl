@@ -119,6 +119,25 @@ function getNextSetBounds!(xBounds,yBounds,psiBounds,u0min,u0max,u1min,u1max;v0=
     
 end
 
+function getCutpoints(XS)
+    xStepsAll = XS[2:end]-XS[1:end-1]
+    xSteps = Array{Float32,1}()
+    xNums = Array{Int32,1}()
+    xCuts = [XS[1]]
+    currentStep = -1
+    for (i,step) in enumerate(xStepsAll)
+        if step != currentStep
+            currentStep = step
+            xSteps = vcat(xSteps,[step])
+            xNums = vcat(xNums,[i])
+            if length(xNums)>1
+                xCuts = vcat(xCuts,[xCuts[end]+(xNums[end]-xNums[end-1])*xSteps[end-1]])
+            end
+        end
+    end
+    return (xSteps, xCuts, xNums)
+end
+
 function getIndexBounds(xBoundsNext,yBoundsNext,psiBoundsNext)
     #= Compute which cells overlap with region of state space for each region
     Inputs:
@@ -144,6 +163,7 @@ function getIndexBounds(xBoundsNext,yBoundsNext,psiBoundsNext)
     # can compute the indices more efficiently than a brute force search
     xInds = ones(Int32,size(xBoundsNext)[1],2)
     xMap = xInds.>0
+    xSteps, xCuts, xNums = getCutpoints(XS)
     for i=1:length(xSteps)
         xMap = xMap .& (xBoundsNext.>xCuts[i])
         xInds[xMap] = Int32.(div.(xBoundsNext[xMap].+(xSteps[i]*xNums[i]-xCuts[i]),xSteps[i]))
@@ -151,13 +171,20 @@ function getIndexBounds(xBoundsNext,yBoundsNext,psiBoundsNext)
     
     yInds = ones(Int32,size(yBoundsNext)[1],2)
     yMap = yInds.>0
+    ySteps, yCuts, yNums = getCutpoints(YS)
     for i=1:length(ySteps)
         yMap = yMap .& (yBoundsNext.>yCuts[i])
         yInds[yMap] = Int32.(div.(yBoundsNext[yMap].+(ySteps[i]*yNums[i]-yCuts[i]),ySteps[i]))
     end
         
     # Psi is split uniformly, so mapping to indices is much quicker
-    psiInds = Int32.(div.(psiBoundsNext.*180.0./pi .+ 181.0,1))
+    psiInds = ones(Int32,size(psiBoundsNext)[1],2)
+    psiMap = psiInds.>0
+    psiSteps, psiCuts, psiNums = getCutpoints(PSIS_DEG)
+    for i=1:length(psiSteps)
+        psiMap = psiMap .& (psiBoundsNext.>psiCuts[i])
+        psiInds[psiMap] = Int32.(div.(psiBoundsNext[psiMap].*180.0./pi.+(psiSteps[i]*psiNums[i]-psiCuts[i]),psiSteps[i]))
+    end
     
     xInds[xInds.>NUMX] .= NUMX
     yInds[yInds.>NUMY] .= NUMY
