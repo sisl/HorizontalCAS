@@ -14,7 +14,7 @@ debug: CFLAGS += -std=c99
 debug: LDFLAGS += -DDEBUG -g
 
 network_test_HCAS: matrix.o nnet.o network_test_HCAS.o split.o
-	$(CC) -o $@ $^ $(LDFLAGS)
+	$(CC) -static -o $@ $^ $(LDFLAGS)
 
 c.o: 
 	$(CC) $(CFLAGS) $<  -o $@
