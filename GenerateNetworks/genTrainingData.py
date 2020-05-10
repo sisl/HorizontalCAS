@@ -21,7 +21,7 @@ ranges = np.array([0.0,25.0,50.0,75.0,100.0,150.0,200.0,300.0,400.0,500.0,510.0,
 thetas = np.linspace(-np.pi,np.pi,41)
 psis  = np.linspace(-np.pi,np.pi,41)
 vowns = [200.0]
-vints = [180.0] 
+vints = [200.0] 
 taus  = np.linspace(0,60,61)
 ###############################
 
