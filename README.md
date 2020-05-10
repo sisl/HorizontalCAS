@@ -1,9 +1,25 @@
 # HorizontalCAS
 
-This repository has three main components:
-* Generate MDP table policy
-* Compress MDP table policy by training a neural network
-* Visualize MDP and neural network policies
+This repository describes how to generate HorizontalCAS score tables and train a neural network representation. HorizontalCAS is a simple, notional collision avoidance system (CAS) that gives horizontal turning advisories to an aircraft to avoid an intruder. This system is inspired by early prototypes of ACAS Xu and neural networks trained to represent the score table, but HorizontalCAS is not related in any way to ACAS. This simple system is inteded to facilitate research towards safety-critical neural networks and their verification in the hopes that lessons learned can be applied to real systems.
+
+This repository supports a paper presented at the Digital Avionics Systems Conference (DASC) in 2019, which can be found [here](https://arxiv.org/pdf/1912.07084.pdf).
+
+If HorizontalCAS is useful for your research, please cite
+```
+@inproceedings{julian2019guaranteeing,
+  title={Guaranteeing safety for neural network-based aircraft collision avoidance systems},
+  author={Julian, Kyle D and Kochenderfer, Mykel J},
+  booktitle={Digital Avionics Systems Conference (DASC)},
+  year={2019}
+}
+```
+
+## Saved training data and neural networks
+Although this repository contains the source code used to generate the advisory score table and train a neural network representation, saved copies of training data and trained neural networks can be found here: 
+* [**Training Data**](https://drive.google.com/drive/folders/14kcGM_G5sq72BpCfD4dimp27S7ael3by?usp=sharing)
+* [**Trained Networks**](https://drive.google.com/drive/folders/1Sj2noNh65xbG6H1fO3DkS1GnevSYTa5b?usp=sharing)
+
+The remainder of this README describes how the score table is generated in Julia, how neural networks are trained in Python using tensorflow, and how the neural network policies can be visualized using Julia kernel for a Jupyter notebook.
 
 ## Generate MDP Policy
 Required Julia Packages: Printf, POMDPs, POMDPModelTools, LocalFunctionApproximation, GridInterpolations, Distributed, SharedArrays, StaticArrays, HDF5
