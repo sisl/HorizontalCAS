@@ -576,6 +576,7 @@ function reluValToMmap(folder,ver=6;praInds=1:NUMACTION,tauInds=1:NUMTAU)
         acts (BitArray): True where the network could give an advisory in a cell
     =#
     acts = BitArray(undef,NUMTAU,NUMACTION,NUMACTION,NUMREGIONS)
+    acts .= false
     for praInd = praInds
         for tauInd = tauInds
             println(@sprintf("RA index: %d, Tau Index: %d\n",praInd,tauInd))
