@@ -22,7 +22,7 @@ Although this repository contains the source code used to generate the advisory 
 The remainder of this README describes how the score table is generated in Julia, how neural networks are trained in Python using tensorflow, and how the neural network policies can be visualized using Julia kernel for a Jupyter notebook.
 
 ## Generate MDP Policy
-Required Julia Packages: Printf, POMDPs, POMDPModelTools, LocalFunctionApproximation, GridInterpolations, Distributed, SharedArrays, StaticArrays, HDF5
+Required Julia Packages: Printf, POMDPs@v0.7.0, POMDPModelTools@v0.1.2, LocalFunctionApproximation, GridInterpolations, Distributed, SharedArrays, StaticArrays, HDF5
 
 Tested with Julia v1.1
 
