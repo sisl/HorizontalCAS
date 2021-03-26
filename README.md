@@ -25,6 +25,7 @@ The remainder of this README describes how the score table is generated in Julia
 Required Julia Packages: Printf, POMDPs@v0.7.0, POMDPModelTools@v0.1.2, LocalFunctionApproximation, GridInterpolations, Distributed, SharedArrays, StaticArrays, HDF5
 
 Tested with Julia v1.1
+> Note: A Docker container with Julia v1.1 and the dependencies set up at the correct versions is available with the Dockerfile of this repository. Have a look at the end of this document on a quick guide on how to use it.
 
 The policy is generated in parallel via Julia by running `julia -p NUM_PROCS SolveMDP.jl` in the GenerateTable folder, where NUM_PROCS is the number of processors you want to use. The top of SolveMatrix.jl specifies where the table should be written to as an HDF5 file.
 
@@ -43,3 +44,13 @@ Required Julia Packages: GridInterpolations, Interact, PGFPlots, Colors, ColorBr
 Tested with Julia v1.1
 
 After generating MDP policies and training neural networks, the policies can be visualized. There is an example Jupyter notebook in the PolicyViz folder that shows how the policies can be interactively visualized.
+
+## Julia Docker Container
+The Dockerfile of this repository contains a docker container which contains Julia v1.1 and the packages that are required to run the Julia code in this repository. 
+To use the container, install docker and run the following commands from the root directory of this repository:
+```shell
+docker build . -t HorizontalCAS
+docker run -it --mount src="$PWD",target=/code,type=bind HorizontalCAS bash
+```
+This will start bash inside the container. To leave the container type "exit". 
+To execute the code in this repository, just execute the necessary commands inside this bash. The outputs will be available in your copy of the repository (faciliated via the -v option to docker run). 
