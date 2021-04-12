@@ -39,7 +39,7 @@ After generating the table, the table needs to be formatted into training data f
 Next, run `python trainHCAS.py PREV_ADV TAU <gpu_ind>`, where PREV_ADV is the index of the previous advsiroy you want to train, TAU is the tau value, and gpu_ind is an optional input to specify which GPU to use. If you want to use a CPU instead, use -1 (the default if omitted). Options at the top of the file allow you to specify where the training data is stored and where the .nnet files should be written. There are additional options for the user to specify additional setting for network training.
 
 ## Visualize the Policies
-Required Julia Packages: GridInterpolations, Interact, PGFPlots, Colors, ColorBrewer, HDF5
+Required Julia Packages: GridInterpolations, Interact, PGFPlots, Colors, ColorBrewer, HDF5, Revise
 
 Tested with Julia v1.1
 
@@ -50,7 +50,12 @@ The Dockerfile of this repository contains a docker container which contains Jul
 To use the container, install docker and run the following commands from the root directory of this repository:
 ```shell
 docker build . -t HorizontalCAS
-docker run -it --mount src="$PWD",target=/code,type=bind HorizontalCAS bash
+docker run -it --rm --mount src="$PWD",target=/code,type=bind HorizontalCAS bash
 ```
 This will start bash inside the container. To leave the container type "exit". 
 To execute the code in this repository, just execute the necessary commands inside this bash. The outputs will be available in your copy of the repository (faciliated via the -v option to docker run). 
+
+Run the below command to start a jupyter lab instance which will allow you to run the PolicyViz exaple notebook.
+```shell
+sudo docker run -it --rm --mount src="$PWD",target=/code,type=bind -p 8888:8888 hcas jupyter lab --port 8888 --no-browser --ip 0.0.0.0 --allow-root
+```
