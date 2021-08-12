@@ -49,8 +49,8 @@ After generating MDP policies and training neural networks, the policies can be 
 The Dockerfile of this repository contains a docker container which contains Julia v1.1 and the packages that are required to run the Julia code in this repository. 
 To use the container, install docker and run the following commands from the root directory of this repository:
 ```shell
-docker build . -t HorizontalCAS
-docker run -it --rm --mount src="$PWD",target=/code,type=bind HorizontalCAS bash
+docker build . -t hcas
+docker run -it --rm --mount src="$PWD",target=/code,type=bind hcas bash
 ```
 This will start bash inside the container. To leave the container type "exit". 
 To execute the code in this repository, just execute the necessary commands inside this bash. The outputs will be available in your copy of the repository (faciliated via the -v option to docker run). 
