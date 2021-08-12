@@ -57,5 +57,5 @@ To execute the code in this repository, just execute the necessary commands insi
 
 Run the below command to start a jupyter lab instance which will allow you to run the PolicyViz exaple notebook.
 ```shell
-sudo docker run -it --rm --mount src="$PWD",target=/code,type=bind -p 8888:8888 hcas jupyter lab --port 8888 --no-browser --ip 0.0.0.0 --allow-root
+docker run -it --rm --mount src="$PWD",target=/code,type=bind -p 8888:8888 hcas jupyter lab --port 8888 --no-browser --ip 0.0.0.0 --allow-root
 ```
