@@ -15,6 +15,7 @@ RUN apt-get install -y --fix-missing --no-install-recommends \
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y --fix-missing --no-install-recommends nodejs
 RUN python3 -m pip -q install pip --upgrade
+RUN python3 -m pip install numpy h5py tensorflow
 RUN python3 -m pip install jupyterlab==2.3.1
 # RUN useradd -ms /bin/bash jupyter
 # USER jupyter
@@ -34,7 +35,7 @@ RUN julia -e 'using Pkg; Pkg.add.([ \
     Pkg.PackageSpec(;name="Colors", version="v0.12.6"), \
     Pkg.PackageSpec(;name="ColorBrewer", version="v0.4"), \
     Pkg.PackageSpec(;name="IJulia"), \
-    Pkg.PackageSpec(;name="WebIO")])'
+    Pkg.PackageSpec(;name="WebIO", version="v0.8.15")])'
 ENV JUPYTER_ENABLE_LAB=yes
 RUN julia -e 'using WebIO; WebIO.install_jupyter_labextension()'
 EXPOSE 8888/tcp
